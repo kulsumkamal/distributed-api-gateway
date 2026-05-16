@@ -1,0 +1,48 @@
+services:
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - rabbitmq
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8001:8001"
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8002:8002"
+
+  threat-worker:
+    build: ./threat-worker
+    depends_on:
+      - redis
+      - rabbitmq
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
