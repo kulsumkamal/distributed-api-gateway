@@ -184,8 +184,8 @@ Optional:
 ## 1. Clone Repository
 
 ```bash
-git clone <your-repo-url>
-cd api-gateway-project
+git https://github.com/kulsumkamal/distributed-api-gateway
+cd distributed-api-gateway
 ```
 
 ---
